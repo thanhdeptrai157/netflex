@@ -1,36 +1,93 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Git Flow Guide for Movie Project
 
-## Getting Started
+## 1. Clone Repository
 
-First, run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+First, you need to clone the repository to your machine using the following command:
+```sh
+  git clone https://github.com/thanhdeptrai157/netflex
+```
+After cloning, navigate into the project directory:
+```sh
+  cd <netflex>
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 2. Add `.env` File
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+After cloning, create a `.env.local` file to configure environment variables. This file should not be committed to Git.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Example content for `.env.local` file:
+```
+NEXT_PUBLIC_API_URL = https://phimapi.com
 
-## Learn More
+```
+Ensure that `.gitignore` includes the following line to prevent committing this file:
+```
+.env.local
+```
 
-To learn more about Next.js, take a look at the following resources:
+## 3. Git Branching Flow
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 3.1. Main Branches
+- `main`: Contains stable code, only merged after thorough testing.
+- `develop`: The main development branch, containing the latest code changes.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### 3.2. Development Branches
+Branches are created from `develop` using the following naming conventions:
+- **New features**: `feature/<feature-name>` (e.g., `feature/ui-homepage`)
+- **Bug fixes**: `fix/<bug-description>` (e.g., `fix/login-bug`)
+- **Code refactoring**: `refactor/<description>` (e.g., `refactor/api-structure`)
+- **Content updates**: `content/<description>` (e.g., `content/update-movie-data`)
 
-## Deploy on Vercel
+### 3.3. Creating a New Branch
+To create a new branch from `develop`, use the following command:
+```sh
+  git checkout develop
+  git pull origin develop
+  git checkout -b <branch-name>
+```
+After making changes, push the branch to remote:
+```sh
+  git push origin <branch-name>
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 4. Commit Guidelines
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### 4.1. Commit Message Structure
+```
+[Type] Short description
+
+- Detailed description (if needed)
+- List of important changes
+```
+
+### 4.2. Commit Types
+- `feat`: New feature (e.g., `feat: Add homepage UI`)
+- `fix`: Bug fix (e.g., `fix: Fix login issue`)
+- `refactor`: Code refactoring (e.g., `refactor: Improve API structure`)
+- `style`: UI/CSS changes only (e.g., `style: Update color scheme`)
+- `docs`: Documentation updates (e.g., `docs: Add API usage guide`)
+- `chore`: Maintenance tasks (e.g., `chore: Update .gitignore file`)
+
+### 4.3. Commit Example
+```sh
+git commit -m "feat: Add movie detail page"
+```
+
+## 5. Creating a Pull Request (PR)
+After completing a feature or bug fix, create a PR to `develop`:
+1. Push code to remote.
+2. Go to GitHub
+3. Create a Pull Request from your branch into `develop`.
+4. Add a detailed description and tag reviewers.
+
+## 6. Keeping Code Up-to-Date
+Always update your branch with the latest `develop` code before working:
+```sh
+git checkout develop
+git pull origin develop
+git checkout <branch-name>
+git merge develop
+```
+If there are conflicts, resolve them before proceeding.
+
+
